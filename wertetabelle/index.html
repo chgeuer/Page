@@ -19,6 +19,7 @@
 	                vAusgabe = vAusgabe + "<th>x</th>";
 	                vAusgabe = vAusgabe + "<th>K(x)</th>";
 	                vAusgabe = vAusgabe + "</tr>"
+
                 for ( var x = start ; x <= ende; x += sw) { 
                     var kx = kv * x + kf;
 
@@ -27,7 +28,7 @@
                     vAusgabe = vAusgabe + '<td>' + kx + '</td>';
                     vAusgabe = vAusgabe + '</tr>';
                 }
-       
+                vAusgabe = vAusgabe + "</table>";
                 document.getElementById("idAusgabe").innerHTML = vAusgabe;
             }
         </script>
