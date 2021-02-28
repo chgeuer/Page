@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de-de">
+	<head>
+		<title>Kostenfunktion</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script>
+            "use strict";
+
+            function fKostenfunktion() {
+                var kv = Number.parseInt(document.getElementById("idVariableKosten").value);
+                var kf = Number.parseInt(document.getElementById("idFixeKosten").value);
+                var start = Number.parseInt(document.getElementById("idStartwert").value);
+                var ende = Number.parseInt(document.getElementById("idEndwert").value);
+                var sw = Number.parseInt(document.getElementById("idSchrittweite").value);
+
+                //var vAusgabe = "";
+                var vAusgabe = "<table border=1>";
+	                vAusgabe = vAusgabe + "<tr>";
+	                vAusgabe = vAusgabe + "<th>x</th>";
+	                vAusgabe = vAusgabe + "<th>K(x)</th>";
+	                vAusgabe = vAusgabe + "</tr>"
+                for ( var x = start ; x <= ende; x += sw) { 
+                    var kx = kv * x + kf;
+
+                    vAusgabe = vAusgabe + '<tr style="background-color:lightblue">';
+                    vAusgabe = vAusgabe + '<td>' + x + '</td>';
+                    vAusgabe = vAusgabe + '<td>' + kx + '</td>';
+                    vAusgabe = vAusgabe + '</tr>';
+                }
+       
+                document.getElementById("idAusgabe").innerHTML = vAusgabe;
+            }
+        </script>
+    </head>
+	<body>
+        <h1>Kostenfunktion</h1>
+        <p>Variable Kosten:</p><input id="idVariableKosten" type="number" value="1">
+        <p>Fixe Kosten:</p><input id="idFixeKosten" type="number" value="10">
+        <p>Startwert:</p><input id="idStartwert" type="number" value="-10">
+        <p>Endwert:</p><input id="idEndwert" type="number" value="10">
+        <p>Schrittweite:</p><input id="idSchrittweite" type="number" value="2">
+    <br />
+    <br />
+		<button onClick="fKostenfunktion()">Berechnen</button>
+
+    <br />
+       
+        <div id="idAusgabe"></div>
+		
+	</body>
+</html>
