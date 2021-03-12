@@ -1,1 +1,59 @@
-s
+<!DOCTYPE html>
+<html lang="de-de">
+	<head>
+		<title>Kostenfunktion</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>table { text-align: right; }</style>
+        <script>
+            "use strict";
+
+            function fKostenfunktion() {
+                function get(id) { return Number.parseInt(document.getElementById(id).value); }
+
+                var zinssatz = get("idZinssatz");
+                var kapital = get("idKapital");
+                var laufzeit = get("idLaufzeit");
+
+                var ausgabe = '<table border=1>' +
+                                    '<tr>' +
+                                        '<th>Jahr</th>' + 
+                                        '<th>Kapital am 1.1</th>' + 
+                                        '<th>Zins am 31.12</th>' + 
+                                        '<th>Kapital am 31.12</th>' +
+                                    '</tr>';
+
+                for (var x = 0; x <= laufzeit; x++) { 
+                    
+                    var zinsenende = kapital * (zinssatz / 100);
+                    var kapitalende = kapital + zinsenende;
+                   
+                    ausgabe = ausgabe + 
+                        '<tr style="background-color:lightblue">' + 
+                            '<td>' + x + '</td>' + 
+                            '<td>' + kapital.toFixed(2) + '</td>' + 
+                            '<td>' + zinsenende.toFixed(2) + '</td>' + 
+                            '<td>' + kapitalende.toFixed(2) + '</td>' + 
+                        '</tr>';
+
+                    kapital = kapitalende;
+                }
+                ausgabe = ausgabe + '</table>';
+                document.getElementById('idAusgabe').innerHTML = ausgabe;
+            }
+        </script>
+    </head>
+	<body>
+        <h1>Kostenfunktion</h1>
+        <p>Zinessatz:</p><input id="idZinssatz" type="number" value="2">
+        <p>Kapital:</p><input id="idKapital" type="number" value="1000">
+        <p>Laufzeit in Jahren:</p><input id="idLaufzeit" type="number" value="5">
+    <br />
+    <br />
+		<button onClick="fKostenfunktion()">Berechnen</button>
+
+    <br />
+       
+    <div id="idAusgabe"></div>
+		
+</body>
+</html>
