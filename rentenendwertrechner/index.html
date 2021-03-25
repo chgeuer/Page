@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de-de">
+	<head>
+		<title>Kostenfunktion</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>table { text-align: right; }</style>
+        <script>
+            "use strict";
+
+            function fRechner() {
+                function get(id) { return Number.parseInt(document.getElementById(id).value); }
+
+                var vZinssatz = get("idZinssatz");
+                var vRente = get("idRente");
+                var vLaufzeit = get("idLaufzeit");
+
+                var ausgabe = '<table border=1>' +
+                                    '<tr>' +
+                                        '<th>Jahr</th>' + 
+                                        '<th>Kapital am 1.1</th>' + 
+                                        '<th>Zinsen am 31.12</th>' + 
+                                        '<th>Rente am 31.12</th>' +
+                                        '<th>Kapital am 31.12</th>' +
+                                    '</tr>';
+
+                var vZinsfaktor = 1.0 + vZinssatz / 100.0;
+                var vRentenendwert = vRente * (Math.pow(vZinsfaktor, vLaufzeit) - 1) / (vZinsfaktor - 1);
+
+                var vKapital = 0;
+                for (var x = 0; x < vLaufzeit; x++) {
+                    var vZinsenende = vKapital * (vZinssatz / 100);
+                    var vKapitalende = vKapital + vZinsenende + vRente;
+                   
+                    ausgabe = ausgabe + 
+                        '<tr>' + 
+                            '<td>' + x + '</td>' + 
+                            '<td>' + vKapital.toFixed(2) + ' € </td>' + 
+                            '<td>' + vZinsenende.toFixed(2) + ' € </td>' + 
+                            '<td>' + vRente.toFixed(2) + ' € </td>' + 
+                            '<td>' + vKapitalende.toFixed(2) + ' € </td>' + 
+                        '</tr>';
+
+                    vKapital = vKapitalende;
+                }
+                ausgabe = ausgabe + 
+                        '<tr>' + 
+                            '<td>' + vLaufzeit + '</td>' + 
+                            '<td>' + vKapital.toFixed(2) + ' € </td>' + 
+                            '<td></td>' + 
+                            '<td></td>' + 
+                            '<td></td>' + 
+                        '</tr>';
+
+                ausgabe = ausgabe + '</table>';
+
+                ausgabe = '<p> Der Rentenendwert betr&auml;gt ' + vRentenendwert.toFixed(2) + " €.</p>" + ausgabe;
+
+                document.getElementById('idAusgabe').innerHTML = ausgabe;
+            }
+        </script>
+    </head>
+	<body>
+        <h1>Nachsch&uuml;ssiger Rentenendwertrechner</h1>
+        <p>Zinessatz: <input id="idZinssatz" type="number" value="2">%</p>
+        <p>Nachsch&uuml;ssige Rente <input id="idRente" type="number" value="100">€</p>
+        <p>Laufzeit <input id="idLaufzeit" type="number" value="5"> Jahre</p>
+    <br />
+    <br />
+		<button onClick="fRechner()">Berechnen</button>
+
+    <br />
+       
+    <div id="idAusgabe"></div>
+		
+</body>
+</html>
