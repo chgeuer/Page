@@ -13,23 +13,17 @@
                 var ende = Number.parseInt(document.getElementById("idEndwert").value);
                 var sw = Number.parseInt(document.getElementById("idSchrittweite").value);
 
-                //var vAusgabe = "";
-                var vAusgabe = "<table border=1>";
-	                vAusgabe = vAusgabe + "<tr>";
-	                vAusgabe = vAusgabe + "<th>x</th>";
-	                vAusgabe = vAusgabe + "<th>K(x)</th>";
-	                vAusgabe = vAusgabe + "</tr>"
+                var table = document.getElementById("ergebnisTabelle");
 
-                for ( var x = start ; x <= ende; x += sw) { 
+                for (var x = start ; x <= ende; x += sw) { 
                     var kx = kv * x + kf;
 
-                    vAusgabe = vAusgabe + '<tr style="background-color:lightblue">';
-                    vAusgabe = vAusgabe + '<td>' + x + '</td>';
-                    vAusgabe = vAusgabe + '<td>' + kx + '</td>';
-                    vAusgabe = vAusgabe + '</tr>';
+                    var row = table.insertRow();
+                    row.style = "background-color:lightblue";
+
+                    row.insertCell().innerHTML = x;
+                    row.insertCell().innerHTML = kx;
                 }
-                vAusgabe = vAusgabe + "</table>";
-                document.getElementById("idAusgabe").innerHTML = vAusgabe;
             }
         </script>
     </head>
@@ -46,7 +40,12 @@
 
     <br />
        
-        <div id="idAusgabe"></div>
+    <table id="ergebnisTabelle" border="1">
+        <tr>
+            <th>x</th>
+            <th>K(x)</th>
+        </tr>
+    </table>
 		
-	</body>
+</body>
 </html>
